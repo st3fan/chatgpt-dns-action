@@ -16,22 +16,7 @@ const Prefix = "/chatgpt/dns-actions"
 func main() {
 	s := fuego.NewServer(
 		fuego.WithAddr("0.0.0.0:8080"),
-		fuego.WithEngineOptions(
-			fuego.WithOpenAPIConfig(
-				fuego.OpenAPIConfig{
-
-				}
-			),
-		),
-		//fuego.WithBasePath("/chatgpt/actions/dns"),
-		// fuego.WithEngineOptions(
-		// 	fuego.WithOpenAPIConfig(fuego.OpenAPIConfig{
-		// 		JSONFilePath: "doc/openapi.json",
-		// 		SpecURL:      "https://wopr.norad.org/chatgpt/actions/dns/swagger/openapi.json",
-		// 		SwaggerURL:   "https://wopr.norad.org/chatgpt/actions/dns/swagger",
-		// 		UIHandler:    fuego.DefaultOpenAPIHandler,
-		// 	}),
-		// ),
+		fuego.WithBasePath("/chatgpt/actions/dns"),
 	)
 
 	fuego.Get(s, "/mx", getMX,
