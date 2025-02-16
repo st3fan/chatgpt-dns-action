@@ -16,15 +16,33 @@ const Prefix = "/chatgpt/dns-actions"
 func main() {
 	s := fuego.NewServer(
 		fuego.WithAddr("0.0.0.0:8080"),
+		fuego.WithEngineOptions(
+			fuego.WithOpenAPIConfig(
+				fuego.OpenAPIConfig{
+
+				}
+			),
+		),
+		//fuego.WithBasePath("/chatgpt/actions/dns"),
+		// fuego.WithEngineOptions(
+		// 	fuego.WithOpenAPIConfig(fuego.OpenAPIConfig{
+		// 		JSONFilePath: "doc/openapi.json",
+		// 		SpecURL:      "https://wopr.norad.org/chatgpt/actions/dns/swagger/openapi.json",
+		// 		SwaggerURL:   "https://wopr.norad.org/chatgpt/actions/dns/swagger",
+		// 		UIHandler:    fuego.DefaultOpenAPIHandler,
+		// 	}),
+		// ),
 	)
 
 	fuego.Get(s, "/mx", getMX,
+		option.OperationID("getMX"),
 		option.Summary("List the MX records for a single domain"),
 		option.Description("List the MX records for a single domain. For many domains, use the bulk endpoint instead."),
 		option.Query("domain", "The domain name to look at", param.Required()),
 	)
 
 	fuego.Post(s, "/mx/bulk", getMXBulk,
+		option.OperationID("getMXBulk"),
 		option.Summary("List the MX records for many domains"),
 		option.Description("List the MX records for up to 50 domains."),
 	)
